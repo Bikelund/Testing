@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 
 export class TodoItem extends Component {
     getStyle = () => {
@@ -14,24 +14,26 @@ export class TodoItem extends Component {
     render() {
         const { id, title, completed } = this.props.todo;
         return (
+            <>
             <div style={ this.getStyle() }>
                 <p>
                     <input type="checkbox" onChange={ this.props.markComplete.bind(this, id ) } checked={ completed ? 'checked': '' }/>{' '}
                     {title}
-                    <button onClick={this.props.delTodo.bind(this, id)} style={{ float: 'right' }}>
+                    <button onClick={this.props.delTodo.bind(this, id)} style={{ float: 'right' }} className="deleteBtn">
                         <i class="fa fa-trash" aria-hidden="true"></i>
                     </button>
                 </p>
             </div>
+            </>
         )
     }
 }
 
-// PropTypes
-TodoItem.PropTypes = {
-    todos: PropTypes.object.isRequired,
-    markComplete: PropTypes.func.isRequired,
-    delTodo: PropTypes.func.isRequired
+// propTypes
+TodoItem.propTypes = {
+    todos: propTypes.object.isRequired,
+    markComplete: propTypes.func.isRequired,
+    delTodo: propTypes.func.isRequired
 }
 
 

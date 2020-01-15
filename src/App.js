@@ -1,18 +1,11 @@
 // Importing Modules
 import React, { Component } from 'react';
 import axios from 'axios';
-
-// import uuid from 'uuid';  // Not Used Anymore
-
 // Importing React-Router
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-
 // Importing Components
 import Todos from './components/Todos';
-import Header from './components/layout/Header';
 import AddTodo from './components/AddTodo';
-import About from './components/pages/About';
-
 import './App.css';
 
 class App extends Component {
@@ -20,8 +13,8 @@ class App extends Component {
     todos: []
   }
 
-  componentDidMount() {
-    axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10')
+  async componentDidMount() {
+    await axios('https://jsonplaceholder.typicode.com/todos?_limit=10')
       .then(res => this.setState({ todos: res.data }));
   }
 
@@ -36,6 +29,10 @@ class App extends Component {
       });
   }
 
+  // Delete All
+  delAllTodo = () => {
+    this.setState({ todos: []});
+  }
   // Delete Todo
   delTodo = (id) => {
     axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
@@ -43,14 +40,6 @@ class App extends Component {
   }
 
   addTodo = (title) => {
-    /*
-    const newTodo = {
-      id: uuid.v4(),
-      title: title,
-      completed: false
-    }
-    this.setState({ todos: [...this.state.todos, newTodo]})
-    */
     axios.post('https://jsonplaceholder.typicode.com/todos', {
       title: title,
       completed: false
@@ -65,7 +54,6 @@ class App extends Component {
       <Router>
         <div className="App">
           <div className="container">
-            <Header />
             <br />
             <Route exact path="/" render={props => (
               <React.Fragment>
@@ -74,8 +62,8 @@ class App extends Component {
               </React.Fragment>
             )} />
 
-            <Route path="/about" component={About} />
           </div>
+          <button onClick={this.delAllTodo} className="clearBtn">Clear</button>
         </div>
       </Router>
     );
