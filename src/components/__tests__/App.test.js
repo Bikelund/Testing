@@ -29,7 +29,6 @@ test('Clicking on clear will remove all todos', () => {
 test('Mark a todo as done', () => {
     const fn = jest.fn();
     const wrapper = mount(<App markComplete={ fn } />);
-    console.log(wrapper.state().todos);
 
     wrapper.setState(
         {
@@ -39,7 +38,6 @@ test('Mark a todo as done', () => {
 
     wrapper.instance().markComplete("1");
     wrapper.update();
-    console.log(wrapper.state().todos);
 
     expect(wrapper.state().todos[0].completed).toEqual(true);
 });
@@ -71,5 +69,4 @@ test('Delete todo', async () => {
     await flushPromises();
     
     expect(wrapper.state('todos')).toHaveLength(2);
-
 });

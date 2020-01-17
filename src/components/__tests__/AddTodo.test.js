@@ -13,7 +13,6 @@ test('Check for a submit button', () => {
 });
 
 test('Empty input field', () => {
-
     const wrapper = mount(<AddTodo addTodo={jest.fn()} />);
 
     wrapper.find('input[type="text"]').simulate('change', {
